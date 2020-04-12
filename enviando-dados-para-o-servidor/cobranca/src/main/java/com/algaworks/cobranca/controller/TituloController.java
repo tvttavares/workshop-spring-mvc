@@ -14,12 +14,12 @@ public class TituloController {
 	public String novo() {
 		return "CadastroTitulo";
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(Titulo titulo) {
 		System.out.println(">>> " + titulo.getDescricao());
-
+		
 		return "CadastroTitulo";
 	}
-
+	
 }
