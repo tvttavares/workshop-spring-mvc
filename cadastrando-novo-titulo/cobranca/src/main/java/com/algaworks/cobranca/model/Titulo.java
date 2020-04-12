@@ -21,16 +21,16 @@ public class Titulo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-
+	
 	private String descricao;
-
+	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
-
-	@NumberFormat(pattern ="#,##0.00")
+	
+	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
-
+	
 	@Enumerated(EnumType.STRING)
 	private StatusTitulo status;
 
