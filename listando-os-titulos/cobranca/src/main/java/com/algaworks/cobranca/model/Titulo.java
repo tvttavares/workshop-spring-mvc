@@ -21,16 +21,16 @@ public class Titulo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-
+	
 	private String descricao;
-
+	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
-
+	
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
-
+	
 	@Enumerated(EnumType.STRING)
 	private StatusTitulo status;
 
@@ -73,9 +73,9 @@ public class Titulo {
 	public void setStatus(StatusTitulo status) {
 		this.status = status;
 	}
-
+	
 	public boolean isPendente() {
-		return StatusTitulo.PENDENTE.equals(status);
+		return StatusTitulo.PENDENTE.equals(this.status);
 	}
 
 	@Override
