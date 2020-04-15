@@ -15,46 +15,44 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.cobranca.model.StatusTitulo;
 import com.algaworks.cobranca.model.Titulo;
-import com.algaworks.cobranca.repository.TitulosRepository;
+import com.algaworks.cobranca.repository.Titulos;
 
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
-
+	
 	@Autowired
-	private TitulosRepository titulos;
+	private Titulos titulos;
 
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject(new Titulo());
-
 		return mv;
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {
 		if (errors.hasErrors()) {
 			return "CadastroTitulo";
 		}
-
+		
 		titulos.save(titulo);
 		attributes.addFlashAttribute("mensagem", "Título salvo com sucesso!");
-
-		return "redirect:/titulos/novo";
+		return "redirect:/titulos/novo"; 
 	}
-
+	
 	@RequestMapping
 	public ModelAndView pesquisar() {
 		List<Titulo> todosTitulos = titulos.findAll();
 		ModelAndView mv = new ModelAndView("PesquisaTitulos");
 		mv.addObject("titulos", todosTitulos);
-
 		return mv;
 	}
-
+	
 	@ModelAttribute("todosStatusTitulo")
 	public List<StatusTitulo> todosStatusTitulo() {
 		return Arrays.asList(StatusTitulo.values());
 	}
+	
 }
