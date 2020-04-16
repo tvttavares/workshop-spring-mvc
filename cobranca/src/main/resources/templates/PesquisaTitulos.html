@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="LayoutPadrao">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
 
 <head>
-	<title>Pesquisa de títulos</title>
+<title>Pesquisa de títulos</title>
 </head>
 
 <section layout:fragment="conteudo">
@@ -36,25 +38,25 @@
 						<td th:text="${titulo.descricao}"></td>
 						<td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
 						<td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
-						<td class="text-center"><span class="label" th:text="${titulo.status.descricao}"
-								th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
+						<td class="text-center" th:attr="data-role=${titulo.codigo}"><span
+							class="label" th:text="${titulo.status.descricao}"
+							th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
 						</td>
-						<td class="text-center">
-							<a class="btn btn-link btn-xs" th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}"
-								title="Editar" rel="tooltip" data-placement="top">
-								<span class="glyphicon glyphicon-pencil"></span>
-							</a>
-							<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
-								th:attr="data-codigo=${titulo.codigo}, data-descricao=${titulo.descricao}"
-								title="Excluir" rel="tooltip" data-placement="top">
-								<span class="glyphicon glyphicon-remove"></span>
-							</a>
-							<a class="btn btn-link btn-xs js-atualizar-status" th:if="${titulo.pendente}"
-							title="Receber" rel="tooltip" data-placement="top"
+						<td class="text-center"><a class="btn btn-link btn-xs"
+							th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}"
+							title="Editar" rel="tooltip" data-placement="top"> <span
+								class="glyphicon glyphicon-pencil"></span>
+						</a> <a class="btn btn-link btn-xs" data-toggle="modal"
+							data-target="#confirmacaoExclusaoModal"
+							th:attr="data-codigo=${titulo.codigo}, data-descricao=${titulo.descricao}"
+							title="Excluir" rel="tooltip" data-placement="top"> <span
+								class="glyphicon glyphicon-remove"></span>
+						</a> <a class="btn btn-link btn-xs js-atualizar-status"
+							th:if="${titulo.pendente}" title="Receber" rel="tooltip"
+							data-placement="top" th:attr="data-codigo=${titulo.codigo}"
 							th:href="@{/titulos/{codigo}/receber(codigo=${titulo.codigo})}">
 								<span class="glyphicon glyphicon-check"></span>
-							</a>
-						</td>
+						</a></td>
 					</tr>
 					<tr>
 						<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum

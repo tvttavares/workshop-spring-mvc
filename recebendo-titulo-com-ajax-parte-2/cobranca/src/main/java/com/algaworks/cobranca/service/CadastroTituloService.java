@@ -6,31 +6,32 @@ import org.springframework.stereotype.Service;
 
 import com.algaworks.cobranca.model.StatusTitulo;
 import com.algaworks.cobranca.model.Titulo;
-import com.algaworks.cobranca.repository.TitulosRepository;
+import com.algaworks.cobranca.repository.Titulos;
 
 @Service
-public class TituloService {
+public class CadastroTituloService {
 
 	@Autowired
-	private TitulosRepository titulos;
-
+	private Titulos titulos;
+	
 	public void salvar(Titulo titulo) {
 		try {
 			titulos.save(titulo);
 		} catch (DataIntegrityViolationException e) {
-			throw new IllegalArgumentException("Formato de data Invalido");
+			throw new IllegalArgumentException("Formato de data inválido");
 		}
 	}
 
 	public void excluir(Long codigo) {
-		titulos.deleteById(codigo);
+		titulos.delete(codigo);
 	}
 
 	public String receber(Long codigo) {
-		Titulo titulo = titulos.findById(codigo).get();
+		Titulo titulo = titulos.findOne(codigo);
 		titulo.setStatus(StatusTitulo.RECEBIDO);
 		titulos.save(titulo);
 		
 		return StatusTitulo.RECEBIDO.getDescricao();
 	}
+	
 }
